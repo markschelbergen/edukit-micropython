@@ -1,5 +1,5 @@
 MPY_HOME = ~/micropython
-MPY_CROSS = $(MPY_HOME)/mpy-cross/build/mpy-cross
+MPY_CROSS = mpy-cross
 #OPT = -march=armv7emsp -O3 -X emit=native
 OPT = -march=armv7emsp -O3 -X emit=bytecode
 MPREMOTE = $(MPY_HOME)/tools/mpremote/mpremote.py
