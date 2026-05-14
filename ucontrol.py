@@ -93,14 +93,14 @@ class PID():
                 if not supervis['reference_repeat']:
                     supervis['reference_add'] = False
                 supervis['reference_counter'] = 0
-                self.e1 = self.r1 + supervis['reference_sequence'][supervis['reference_counter']] - self.y[0]                
+                self.e2 = self.r2 + supervis['reference_sequence'][supervis['reference_counter']] - self.y[1]
             else:
-                self.e1 = self.r1 + supervis['reference_sequence'][supervis['reference_counter']] - self.y[0]
+                self.e2 = self.r2 + supervis['reference_sequence'][supervis['reference_counter']] - self.y[1]
                 supervis['reference_counter'] += 1
         else:
-            self.e1 = self.r1 - self.y[0]
+            self.e2 = self.r2 - self.y[1]
 
-        self.e2 = self.r2 - self.y[1]
+        self.e1 = self.r1 - self.y[0]
         
         self.u = 0.
         if self.run:

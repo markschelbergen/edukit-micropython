@@ -5,6 +5,7 @@ from machine import Pin
 from pyb import Timer, freq
 from time import sleep_ms, sleep_us, ticks_us, ticks_diff, ticks_ms
 from random import random
+from numpy import pi
 import gc
 import array
 
@@ -214,7 +215,7 @@ async def main():
         
 
 set_control_sequence(5.,40.,-40.,100)
-set_reference_sequence(0.,20.,-20.,100)
+set_reference_sequence(0.,7.*2400/(2*pi),0,100)
 
 # initialize L6474:
 stepper.set_default()
