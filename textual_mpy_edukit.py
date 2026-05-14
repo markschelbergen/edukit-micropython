@@ -341,7 +341,7 @@ class IDE(App):
         log0 = True
         log1 = True
         log_ready = False
-        log_num_buf = int(self.query_one('#num_bufs_input').value)
+        log_num_buf = 1  #int(self.query_one('#num_bufs_input').value)
         log_num_samples = log_num_buf * LOG_BUF_LEN
         log_buf_counter = 0
         log_data = np.zeros((log_num_samples,3))

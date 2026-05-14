@@ -265,14 +265,14 @@ class L6474():
         tim = self.tim
         direction = self.direction
         if control == 0.:
-            tim.period(100000)        
+            tim.period_timer(100000)
             if direction.value() == 0:
                 direction.value(1)
             else:
                 direction.value(0)
         else:
             if abs(control)<1:
-                tim.period(10000)
+                tim.period_timer(10000)
                 if control<0:
                     period = -10000
                 else:
@@ -280,11 +280,11 @@ class L6474():
             else:
                 period = round(10000./(control))
                 if abs(period) < 1:
-                    tim.period(1)
+                    tim.period_timer(1)
                 elif abs(period) < 10000:
-                    tim.period(abs(period))
+                    tim.period_timer(abs(period))
                 else:
-                    tim.period(10000)
+                    tim.period_timer(10000)
             if period<0:
                 direction.value(0)
             else:
