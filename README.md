@@ -12,7 +12,7 @@ For a fast, automated setup, use the provided scripts:
 **Windows:**
 ```bash
 # 1. Clone or download the repository in terminal:
-git clone https://github.com/prfraanje/edukit-micropython
+git clone -b branchnaam https://github.com/markschelbergen/edukit-micropython
 cd edukit-micropython
 
 # 2. Run the setup script (double-click setup.bat or run in terminal)
@@ -30,7 +30,7 @@ If successful, you can continue at [Usage](#usage) below.
 **Linux/Mac:**
 ```bash
 # 1. Clone or download the repository
-git clone https://github.com/prfraanje/edukit-micropython
+git clone -b branchnaam https://github.com/markschelbergen/edukit-micropython
 cd edukit-micropython
 
 # 2. Run the setup script
@@ -66,7 +66,7 @@ If successful, you can continue at [Usage](#usage) below.
 
 Open a terminal (Windows: Press `Win+R`, type `cmd`, press Enter; Ubuntu: Press `Ctrl+Alt+T`) and run:
 ```bash
-git clone https://github.com/prfraanje/edukit-micropython
+git clone -b branchnaam https://github.com/markschelbergen/edukit-micropython
 cd edukit-micropython
 ```
 With Git, you can easily update to the latest version later with:
