@@ -40,10 +40,22 @@ log_data = np.zeros((3*LOG_BUF_LEN,3))
 suggestions = ["micropython_results", "python_results", "micropython_tasks", "python_tasks",
                "log_data", 
                ]
-mpy_suggestions = ["micropythonn_results","micropython_tasks",
-                   "pid.", "pid.get_gains1()", "pid.get_gains2()", "pid.set_gains1()","pid.pid_set_gains2()",
-                   "encoder.", "stepper.","supervisory", "supervisory['reference_add']",
+# mpy_suggestions = ["micropython_results","micropython_tasks",
+#                    "pid.", "pid.get_gains1()", "pid.get_gains2()", "pid.set_gains1()","pid.pid_set_gains2()",
+#                    "encoder.", "stepper.","supervisory", "supervisory['reference_add']",
+#                ]
+mpy_suggestions = ["stepper.set_period_direction(0)", "pid.set_gains2(0, -.1, 0)",
+                   "encoder.value(0)", "encoder.position()", "pid.run"
                ]
+
+def make_ticks(y_min, y_max, n_ticks=5):
+    step = (y_max - y_min) / (n_ticks - 1)
+    # rond step af op een mooie macht van 10
+    magnitude = 10 ** math.floor(math.log10(step))
+    step = round(step / magnitude) * magnitude
+    step = max(step, magnitude)  # voorkom step van 0
+    ticks = [round(i * step, 10) for i in range(math.floor(y_min / step), math.ceil(y_max / step) + 1)]
+    return ticks
 
 
 class TimeDisplay(Static):
@@ -82,11 +94,32 @@ class TimeDisplay(Static):
         #for i in range(len(data)): self.plot_history[i].append(data[i])
         for i in range(3): self.plot_history[i].append(data[i])
         self.plot_output[0].plt.clear_data()
-        self.plot_output[0].plt.scatter(self.plot_history[0],yside='left',label='stepper steps') #,marker='fhd')
-        self.plot_output[0].plt.scatter(self.plot_history[1],yside='right',label='encoder ticks') #,marker='fhd')
+
+        ref = [v*360/2400 for v in list(self.plot_history[0])]
+        self.plot_output[0].plt.scatter(ref,label='ref [deg]') #,marker='fhd')
+        pend_angle = [v*360/2400 for v in list(self.plot_history[1])]
+        pend_angle_has_data = any(-30 < v < 30 for v in pend_angle)
+        if pend_angle_has_data:
+            self.plot_output[0].plt.scatter(pend_angle, label='pendulum angle [deg]')
+
+        all_values = ref+pend_angle
+        y_min = max(min(min(all_values), -10), -30)
+        y_max = min(max(max(all_values), 10), 30)
+        self.plot_output[0].plt.ylim(y_min, y_max)
+        ticks = make_ticks(y_min, y_max)
+        self.plot_output[0].plt.yticks(ticks)
+
         self.plot_output[0].refresh()
+
         self.plot_input[0].plt.clear_data()
-        self.plot_input[0].plt.scatter(self.plot_history[2],yside='left',label='control') #,marker='fhd')
+        control_values = [v*5/3200 for v in list(self.plot_history[2])]
+        self.plot_input[0].plt.scatter(control_values,label='control [rev/s]') #,marker='fhd')
+        y_min = min(min(control_values), -1/5)
+        y_max = max(max(control_values), 1/5)
+        self.plot_input[0].plt.ylim(y_min, y_max)
+        ticks = make_ticks(y_min, y_max)
+        self.plot_input[0].plt.yticks(ticks)
+
         self.plot_input[0].refresh()
         
 

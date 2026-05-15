@@ -78,6 +78,7 @@ class PID():
         self.e2_sum = 0
         self.y2_prev = 0
         self.limit2_sum_flag = False
+        self.set_actuator(0)
 
     @micropython.native
     async def control(self):
@@ -92,13 +93,23 @@ class PID():
             if supervis['reference_counter'] >= supervis['reference_num_samples']:
                 if not supervis['reference_repeat']:
                     supervis['reference_add'] = False
+                    self.run = False
+                    self.reset_state()
                 supervis['reference_counter'] = 0
-                self.e2 = self.r2 + supervis['reference_sequence'][supervis['reference_counter']] - self.y[1]
+                r2 = self.r2 + supervis['reference_sequence'][supervis['reference_counter']]
+                self.e2 = r2 - self.y[1]
             else:
-                self.e2 = self.r2 + supervis['reference_sequence'][supervis['reference_counter']] - self.y[1]
+                if supervis['reference_counter'] == 0:
+                    self.run = True
+                r2 = self.r2 + supervis['reference_sequence'][supervis['reference_counter']]
+                self.e2 = r2 - self.y[1]
                 supervis['reference_counter'] += 1
         else:
-            self.e2 = self.r2 - self.y[1]
+            r2 = self.r2
+            self.e2 = r2 - self.y[1]
+        if abs(self.e2)*360/2400 >= 90:
+            self.run = False
+            self.reset_state()
 
         self.e1 = self.r1 - self.y[0]
         
@@ -139,7 +150,7 @@ class PID():
                 self.set_actuator(self.u)
             self.sample[2] = self.u
             
-        self.sample[0] = self.y[0]
+        self.sample[0] = r2
         self.sample[1] = self.y[1]
 
         

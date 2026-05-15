@@ -5,7 +5,6 @@ from machine import Pin
 from pyb import Timer, freq
 from time import sleep_ms, sleep_us, ticks_us, ticks_diff, ticks_ms
 from random import random
-from numpy import pi
 import gc
 import array
 
@@ -15,6 +14,7 @@ from uencoder import Encoder
 from ucontrol import PID, StateSpace
 from uL6474 import L6474
 from urepl import repl
+pi = 3.14159265359
 
 MEMORY_THRESHOLD = const(50000) # total is about 61248
 
@@ -63,9 +63,9 @@ supervisory['record_data'] = [
     array.array('f',[0. for _ in range(supervisory['record_num_samples'])]),
     ]
 supervisory['reference_add'] = False
-supervisory['reference_repeat'] = True
+supervisory['reference_repeat'] = False
 supervisory['reference_counter'] = 0
-supervisory['reference_num_samples'] = supervisory['record_num_samples']
+supervisory['reference_num_samples'] = 700  # supervisory['record_num_samples']
 supervisory['reference_sequence'] = array.array('f',[0. for _ in range(supervisory['reference_num_samples'])])
 supervisory['control_add'] = False
 supervisory['control_repeat'] = True
@@ -102,6 +102,8 @@ def set_reference_sequence(std_noise=0.,height1=0.,height2=0.,duration=100):
     for i in range(supervisory['reference_num_samples']):
         if i < duration:
             supervisory['reference_sequence'][i] = 1.*height1 + std_noise*random()
+        elif i < 2*duration:
+            supervisory['reference_sequence'][i] = -1.*height1 + std_noise*random()
         else:
             supervisory['reference_sequence'][i] = 1.*height2 + std_noise*random()
 
@@ -189,7 +191,7 @@ async def control(controller1,controller2):
             controller.log = remaining_time
 
 
-pid = PID(get_both_sensors(stepper,encoder),stepper.set_period_direction,ctrlparam['sampling_time_ms'],ctrlparam['Kp1'],ctrlparam['Ki1'],ctrlparam['Kd1'],ctrlparam['Kp2'],ctrlparam['Ki2'],ctrlparam['Kd2'],0,0,0,0,0,0,2**16,2**16,False,True,True,supervisory)
+pid = PID(get_both_sensors(stepper,encoder),stepper.set_period_direction,ctrlparam['sampling_time_ms'],ctrlparam['Kp1'],ctrlparam['Ki1'],ctrlparam['Kd1'],ctrlparam['Kp2'],ctrlparam['Ki2'],ctrlparam['Kd2'],0,0,0,0,0,0,2**20,2**20,False,True,True,supervisory)
 
 ss = StateSpace(get_both_sensors(stepper,encoder),stepper.set_period_direction,ctrlparam['sampling_time_ms'],ctrlparam['A'],ctrlparam['B'],ctrlparam['C'],False,supervisory)
 
@@ -215,7 +217,7 @@ async def main():
         
 
 set_control_sequence(5.,40.,-40.,100)
-set_reference_sequence(0.,7.*2400/(2*pi),0,100)
+set_reference_sequence(0.,7.*2400/360,0,100)  #deg*pi/180*3200/(2*pi)
 
 # initialize L6474:
 stepper.set_default()
