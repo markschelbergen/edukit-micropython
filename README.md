@@ -141,60 +141,7 @@ This installs Textual (the UI framework), aioserial (for microcontroller communi
 
 Download and install the [STSW-LINK009](https://www.st.com/en/development-tools/stsw-link009.html) ST-LINK USB driver from ST Microsystems. This is required for Windows to communicate with the Nucleo board.
 
-#### 6. Flash MicroPython to the Microcontroller (at the MBRTC practical this step has been done)
-
-1. Download MicroPython v1.24.0 firmware for [Nucleo-F401RE](https://micropython.org/download/NUCLEO_F401RE/)
-2. Connect your Nucleo-F401RE board to your PC via USB
-3. A USB drive should appear (usually named `NODE_F401RE`)
-4. Copy the downloaded `.hex` file to this USB drive
-5. The board will automatically flash and reboot
-
-**Alternative:** Use [Thonny IDE](https://thonny.org) which provides a user-friendly interface for flashing MicroPython.
-
-#### 7. Compile MicroPython Files (Optional but Recommended)
-
-Compiled `.mpy` files are smaller and load faster than `.py` files.
-
-First, install the mpy-cross compiler (make sure your virtual environment is active):
-```bash
-pip install mpy-cross==1.24.0
-```
-
-**Windows:**
-```bash
-mpy-cross -march=armv7emsp -O3 -X emit=bytecode mpy_edukit.py
-mpy-cross -march=armv7emsp -O3 -X emit=bytecode ucontrol.py
-mpy-cross -march=armv7emsp -O3 -X emit=bytecode uencoder.py
-mpy-cross -march=armv7emsp -O3 -X emit=bytecode uL6474.py
-mpy-cross -march=armv7emsp -O3 -X emit=bytecode urepl.py
-```
-
-**Linux/Mac:**
-```bash
-make
-```
-
-#### 8. Copy Files to the Microcontroller (at the MBRTC practical this step has been done)
-
-**Windows (Using Thonny - Recommended):**
-1. Open [Thonny](https://thonny.org)
-2. Go to `Run` → `Select Interpreter` → Choose `MicroPython (generic)`
-3. Select the correct COM port
-4. Use the file browser to upload these files to the microcontroller's `/flash` folder:
-   - `uL6474.mpy` (or `uL6474.py` if not compiled)
-   - `uencoder.mpy` (or `uencoder.py`)
-   - `ucontrol.mpy` (or `ucontrol.py`)
-   - `urepl.mpy` (or `urepl.py`)
-   - `mpy_edukit.mpy` (or `mpy_edukit.py`)
-5. **Important:** Delete `boot.py` and `main.py` if they exist on the microcontroller
-
-**Linux/Mac:**
-```bash
-make deploy
-make erase_default
-```
-
-#### 9. Run the Application
+#### 6. Run the Application
 
 Make sure your virtual environment is activated (you should see `(venv)` in your prompt), then run:
 ```bash
