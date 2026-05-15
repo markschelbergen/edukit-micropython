@@ -188,11 +188,11 @@ The following block diagram of the PID controller is given below (c.f. `ucontrol
 ![PID control](./img/control_flow.svg)
 All these pictures may be convenient to better understand the following explanation.
 
-2. In the center of the user interface  you see two plot windows. The upper one shows the sensors: 
-   * the steps of the stepper motor in blue, that is retrieved in micropython by evaluating `stepper.get_abs_pos_efficient()`
-   * the ticks of the encoder in green, that is retrieved in micropython  by `encoder.value()`.
+2. In the center of the user interface  you see two plot windows. The upper one shows: 
+   * the angle of the pendulum in green, based on the measured ticks of the encoder that is retrieved in micropython  by `encoder.value()`.
+   * the reference signal showing the desired value of the pendulum angle.
   
-   The lower plot shows the control value, which is proportional to the frequency of the pulses send to the stepper motor by the L6474 stepper driver. In micropython this is the variable `pid.u` for the PID controller or `ss.u` for the state-space controller, and is send to the L6474 stepper motor driver by evaluating e.g. `stepper.set_period_direction(pid.u)` (for PID).
+   The lower plot shows the speed of the stepper motor in revolution per second. This speed is inferred from the control value, which is proportional to the frequency of the pulses send to the stepper motor by the L6474 stepper driver. In micropython this is the variable `pid.u` for the PID controller or `ss.u` for the state-space controller, and is send to the L6474 stepper motor driver by evaluating e.g. `stepper.set_period_direction(pid.u)` (for PID).
 
    The samples are all stored in `pid.sample` or `ss.sample`, and retrieved at a frequency of 20 Hz in the function `update_plots` in the class `TimeDisplay` in `textual_mpy_edukit.py` (also c.f. the attribute `self.update_timer = self.set_interval(1 / 20, self.update_time`), with the statement
    ``` 
