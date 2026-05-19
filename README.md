@@ -13,6 +13,8 @@ For a fast, automated setup, use the provided scripts:
 
 Download and install the [STSW-LINK009](https://www.st.com/en/development-tools/stsw-link009.html) ST-LINK USB driver from ST Microsystems. This is required for Windows to communicate with the Nucleo board. You probably need to restart your computer after installation.
 
+Open a terminal and run the following commands:
+
 ```bash
 # 1. Clone or download the repository in terminal:
 git clone -b prac_regelen https://github.com/markschelbergen/edukit-micropython
@@ -31,6 +33,8 @@ run.bat
 If successful, you can continue at [Usage](#usage) below.
 
 **Linux/Mac:**
+Open a terminal and run the following commands:
+
 ```bash
 # 1. Clone or download the repository
 git clone -b prac_regelen https://github.com/markschelbergen/edukit-micropython
