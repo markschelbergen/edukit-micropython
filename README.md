@@ -10,6 +10,8 @@
 For a fast, automated setup, use the provided scripts:
 
 **Windows:**
+Download and install the [STSW-LINK009](https://www.st.com/en/development-tools/stsw-link009.html) ST-LINK USB driver from ST Microsystems. This is required for Windows to communicate with the Nucleo board.
+
 ```bash
 # 1. Clone or download the repository in terminal:
 git clone -b prac_regelen https://github.com/markschelbergen/edukit-micropython
@@ -52,7 +54,6 @@ If successful, you can continue at [Usage](#usage) below.
 ### Prerequisites
 - **Python 3.12 or 3.13** installed on your PC
 - **Git** (optional, but recommended for easy updates)
-- **ST-Link USB Driver** (Windows only - see step 5 below)
 
 ### Detailed Step-by-Step Installation
 
@@ -60,7 +61,11 @@ If successful, you can continue at [Usage](#usage) below.
 
 > **Note:** Rather than installing python manually and using `pip`, one may prefer to use the faster and more powerful utility `uv`, see [uv](https://docs.astral.sh/uv/).
 
-#### 1. Download the Code
+#### 1. Install ST-Link USB Driver (Windows Only)
+
+Download and install the [STSW-LINK009](https://www.st.com/en/development-tools/stsw-link009.html) ST-LINK USB driver from ST Microsystems. This is required for Windows to communicate with the Nucleo board.
+
+#### 2. Download the Code
 
 **Option A: Using Git (Recommended)**
 
@@ -81,7 +86,7 @@ Download the ZIP file from the green `<> Code` button on GitHub, extract it, and
 cd edukit-micropython
 ```
 
-#### 2. Install Python
+#### 3. Install Python
 
 **Windows:**
 1. Download Python from [python.org](https://www.python.org/downloads/)
@@ -108,7 +113,7 @@ sudo apt install python3 python3-venv python3-pip
 brew install python3
 ```
 
-#### 3. Create a Virtual Environment
+#### 4. Create a Virtual Environment
 
 **Virtual environments isolate project dependencies and prevent conflicts with other Python projects.**
 
@@ -128,7 +133,7 @@ You should now see `(venv)` at the start of your terminal prompt, indicating the
 
 > **Note:** You need to activate the virtual environment every time you open a new terminal. Run the activation command again if you don't see `(venv)` in your prompt.
 
-#### 4. Install Python Dependencies
+#### 5. Install Python Dependencies
 
 With the virtual environment activated, install all required packages:
 ```bash
@@ -136,10 +141,6 @@ pip install -r requirements.txt
 ```
 
 This installs Textual (the UI framework), aioserial (for microcontroller communication), and all other necessary packages.
-
-#### 5. Install ST-Link USB Driver (Windows Only)
-
-Download and install the [STSW-LINK009](https://www.st.com/en/development-tools/stsw-link009.html) ST-LINK USB driver from ST Microsystems. This is required for Windows to communicate with the Nucleo board.
 
 #### 6. Run the Application
 
