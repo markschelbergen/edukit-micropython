@@ -11,7 +11,7 @@ For a fast, automated setup, use the provided scripts:
 
 **Windows:**
 
-Download and install the [STSW-LINK009](https://www.st.com/en/development-tools/stsw-link009.html) ST-LINK USB driver from ST Microsystems. This is required for Windows to communicate with the Nucleo board. You probably need to restart your computer after installation.
+Download and install the [STSW-LINK009](https://www.st.com/en/development-tools/stsw-link009.html) ST-LINK USB driver from ST Microsystems. This is required for Windows to communicate with the Nucleo board. You may need to restart your computer after installation.
 
 Open a terminal and run the following commands:
 
@@ -26,8 +26,6 @@ setup.bat
 # 3. After setup completes, activate venv and run the app
 venv\Scripts\activate
 python textual_mpy_edukit.py
-# Or use the convenience script:
-run.bat
 ```
 
 If successful, you can continue at [Usage](#usage) below.
@@ -47,8 +45,6 @@ cd edukit-micropython
 # 3. After setup completes, activate venv and run the app
 source venv/bin/activate
 python textual_mpy_edukit.py
-#Or use the convenience script:
-./run.sh
 ```
 
 If successful, you can continue at [Usage](#usage) below.
@@ -69,7 +65,7 @@ If successful, you can continue at [Usage](#usage) below.
 
 #### 1. Install ST-Link USB Driver (Windows Only)
 
-Download and install the [STSW-LINK009](https://www.st.com/en/development-tools/stsw-link009.html) ST-LINK USB driver from ST Microsystems. This is required for Windows to communicate with the Nucleo board. You probably need to restart your computer after installation.
+Download and install the [STSW-LINK009](https://www.st.com/en/development-tools/stsw-link009.html) ST-LINK USB driver from ST Microsystems. This is required for Windows to communicate with the Nucleo board. You may need to restart your computer after installation.
 
 #### 2. Download the Code
 
