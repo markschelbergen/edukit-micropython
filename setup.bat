@@ -19,15 +19,15 @@ if errorlevel 1 (
 
 echo here
 
-echo [1/4] Python found:
+echo [1/3] Python found:
 call python --version
 echo.
 
 REM Check if virtual environment already exists
 if exist "venv" (
-    echo [2/4] Virtual environment already exists, skipping creation
+    echo [2/3] Virtual environment already exists, skipping creation
 ) else (
-    echo [2/4] Creating virtual environment...
+    echo [2/3] Creating virtual environment...
     call python -m venv venv
     if errorlevel 1 (
         echo ERROR: Failed to create virtual environment
@@ -39,7 +39,7 @@ if exist "venv" (
 echo.
 
 REM Activate virtual environment and install dependencies
-echo [3/4] Installing dependencies...
+echo [3/3] Installing dependencies...
 echo This may take a few minutes...
 call venv\Scripts\activate.bat
 call python -m pip install --upgrade pip
@@ -48,15 +48,6 @@ if errorlevel 1 (
     echo ERROR: Failed to install dependencies
     pause
     exit /b 1
-)
-echo.
-
-REM Install mpy-cross for compiling MicroPython files
-echo [4/4] Installing mpy-cross compiler...
-call pip install mpy-cross==1.24.0
-if errorlevel 1 (
-    echo WARNING: Failed to install mpy-cross
-    echo You can still use .py files instead of compiled .mpy files
 )
 echo.
 
