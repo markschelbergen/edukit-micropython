@@ -10,6 +10,7 @@
 For a fast, automated setup, use the provided scripts:
 
 **Windows:**
+
 Download and install the [STSW-LINK009](https://www.st.com/en/development-tools/stsw-link009.html) ST-LINK USB driver from ST Microsystems. This is required for Windows to communicate with the Nucleo board.
 
 ```bash
