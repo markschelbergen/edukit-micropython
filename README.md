@@ -33,6 +33,7 @@ run.bat
 If successful, you can continue at [Usage](#usage) below.
 
 **Linux/Mac:**
+
 Open a terminal and run the following commands:
 
 ```bash
