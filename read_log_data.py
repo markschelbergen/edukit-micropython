@@ -15,7 +15,8 @@ with open(filename+".pickle", "rb") as f:
 savemat(filename+".mat", {"data": data})
 
 microsteps = data[:, 0]
-microsteps_per_rev = 320032encoder_ticks = data[:, 1]
+microsteps_per_rev = 3200
+encoder_ticks = data[:, 1]
 ticks_per_rev = 2400
 control = data[:, 2]
 period_timer = 10000. / (control)
